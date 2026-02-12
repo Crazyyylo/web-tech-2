@@ -1,62 +1,45 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { GetStudents } from '../../models/student.model';
+import { StudentsService } from '../../services/students/students.service';
+import { RouterModule } from '@angular/router';
 
-interface Student {
-  id: number;
-  name: string;
-  course: string;
-  yearLevel: string;
-}
 
 @Component({
   selector: 'app-students',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule], 
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss']
 })
-export class StudentsComponent {
-  students: Student[] = [
-    {
-      id: 1,
-      name: 'Sarah Martinez',
-      course: 'Computer Science',
-      yearLevel: '3rd Year'
-    },
-    {
-      id: 2,
-      name: 'James Chen',
-      course: 'Information Technology',
-      yearLevel: '2nd Year'
-    },
-    {
-      id: 3,
-      name: 'Emily Rodriguez',
-      course: 'Software Engineering',
-      yearLevel: '4th Year'
-    },
-    {
-      id: 4,
-      name: 'Michael Thompson',
-      course: 'Data Science',
-      yearLevel: '1st Year'
-    },
-    {
-      id: 5,
-      name: 'Jessica Wang',
-      course: 'Computer Science',
-      yearLevel: '3rd Year'
-    }
-  ];
+export class StudentsComponent implements OnInit {
+
+  private readonly studentsService = inject(StudentsService);
+
+  students = signal<GetStudents[]>([]);
 
   constructor(private router: Router) {}
 
-  navigateToAddStudent(): void {
-    this.router.navigate(['/students/create']);
+  async ngOnInit(): Promise<void> {
+    const students = await this.studentsService.getStudents();
+    this.students.set(students);
   }
 
-  deleteStudent(id: number): void {
-    this.students = this.students.filter(student => student.id !== id);
+  goToCreateStudent() {
+    this.router.navigate(['/create-student']);
+  }
+
+  public async deleteStudent(studentId: string): Promise<void> {
+    try {
+      await this.studentsService.deleteStudent(studentId);
+
+      this.students.set(
+        this.students().filter(student => student.id !== studentId)
+      );
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

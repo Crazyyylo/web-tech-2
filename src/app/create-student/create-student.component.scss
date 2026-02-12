@@ -1,223 +1,155 @@
-// Color Palette - Matching Wireframe
-$background: #ffffff;
-$header-background: #00ffdd;
-$input-background: #c0c0c0;
-$input-border: hsl(0, 6%, 87%);
-$text-primary: #000000;
-$text-label: #000000;
-$button-bg: #00ff00;
-$button-hover: #00ffdd;
+// ===== Theme =====
+$primary: #1e3a8a;
+$primary-hover: #1e40af;
+$background: #f3f4f6;
+$card-bg: #ffffff;
+$border: #e5e7eb;
+$text-primary: #111827;
+$text-secondary: #6b7280;
 
-// Typography
-$font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$radius: 8px;
+$transition: 0.2s ease;
+$max-width: 800px;
 
-// Layout
-$form-width: 440px;
-$input-width: 215px;
-$spacing-xs: 0.25rem;
-$spacing-sm: 0.5rem;
-$spacing-md: 1rem;
-$spacing-lg: 1.5rem;
-$spacing-xl: 2rem;
-.create-student-container {
-  min-height: 100vh;
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
   background-color: $background;
-  font-family: $font-family;
 }
 
-// Header Section
+// ===== Header =====
 .page-header {
-  background-color: $header-background;
-  padding: $spacing-lg 0;
+  background-color: $primary;
+  padding: 2rem 1rem;
   text-align: center;
-  
+  color: white;
+
   .header-title {
     margin: 0;
-    font-size: 2rem;
-    font-weight: 700;
-    color: $text-primary;
-    text-transform: uppercase;
+    font-size: 1.75rem;
+    font-weight: 600;
     letter-spacing: 0.05em;
-    
-    @media (max-width: 640px) {
-      font-size: 1.5rem;
-      padding: 0 $spacing-md;
-    }
   }
 }
 
-// Main Content
-.main-content {
-  max-width: $form-width;
+// ===== Container =====
+.container {
+  max-width: $max-width;
   margin: 0 auto;
-  padding: $spacing-xl $spacing-md;
-  
-  @media (max-width: 640px) {
-    padding: $spacing-lg $spacing-md;
-  }
+  padding: 2.5rem 1.5rem;
 }
 
-// Form Styling
-.student-form {
+// ===== Panel =====
+.panel {
+  background: $card-bg;
+  padding: 2.5rem;
+  border-radius: $radius;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+// ===== Section Titles =====
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin: 2rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid $border;
+}
+
+.section-title:first-of-type {
+  margin-top: 0;
+}
+
+// ===== Form Grid =====
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+// ===== Form Group =====
+.form-group {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  
-  @media (max-width: 640px) {
-    align-items: stretch;
-  }
-}
 
-.form-group {
-  margin-bottom: $spacing-lg;
-  width: 100%;
-  
-  &:last-of-type {
-    margin-bottom: $spacing-xl;
+  label {
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $text-secondary;
   }
-  
-  @media (max-width: 640px) {
-    margin-bottom: $spacing-md;
-  }
-}
 
-.form-label {
-  display: block;
-  margin-bottom: $spacing-sm;
-  font-size: 0.9375rem;
-  font-weight: 400;
-  color: $text-label;
-  line-height: 1.5;
-}
+  input,
+  select {
+    padding: 0.65rem 0.8rem;
+    font-size: 0.95rem;
+    border-radius: $radius;
+    border: 1px solid $border;
+    transition: $transition;
+    background-color: #ffffff;
+  }
 
-.form-input {
-  width: $input-width;
-  padding: 0.625rem 0.75rem;
-  font-size: 0.9375rem;
-  font-family: $font-family;
-  color: $text-primary;
-  background-color: $input-background;
-  border: none;
-  border-radius: 0.25rem;
-  transition: all 0.2s ease;
-  box-sizing: border-box;
-  
-  @media (max-width: 640px) {
-    width: 100%;
-  }
-  
-  &::placeholder {
-    color: transparent;
-  }
-  
-  &:focus {
+  input:focus,
+  select:focus {
     outline: none;
-    background-color: #c7c7c7;
-  }
-  
-  &:hover:not(:focus) {
-    background-color: #cccccc;
-  }
-  
-  // Remove spinner arrows from number inputs
-  &[type="number"] {
-    -moz-appearance: textfield;
-    
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
-  
-  // Select dropdown styling
-  &[type="select"] {
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23333' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    background-size: 10px;
-    padding-right: 2rem;
-    
-    option {
-      background-color: $background;
-      color: $text-primary;
-    }
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
   }
 }
 
-select.form-input {
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23333' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 10px;
-  padding-right: 2rem;
-  
-  option {
-    background-color: $background;
-    color: $text-primary;
-  }
-}
-
-// Form Actions (Buttons)
-.form-actions {
+// ===== Buttons =====
+.actions {
+  margin-top: 2.5rem;
   display: flex;
-  justify-content: center;
-  gap: $spacing-md;
-  margin-top: $spacing-lg;
-  width: 100%;
-  
-  @media (max-width: 480px) {
-    flex-direction: column;
-    gap: $spacing-sm;
-  }
+  justify-content: flex-end;
+  gap: 1rem;
 }
 
-.btn-back,
-.btn-submit {
-  padding: 0.625rem 1.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+.btn {
+  padding: 0.6rem 1.6rem;
+  border-radius: $radius;
   border: none;
-  border-radius: 0.25rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: $font-family;
-  background-color: $button-bg;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: $transition;
+}
+
+.btn.primary {
+  background-color: $primary;
+  color: white;
+}
+
+.btn.primary:hover {
+  background-color: $primary-hover;
+}
+
+.btn.secondary {
+  background-color: #e5e7eb;
   color: $text-primary;
-  
-  @media (max-width: 480px) {
-    width: 100%;
-  }
-  
-  &:hover {
-    background-color: $button-hover;
-  }
-  
-  &:active {
-    transform: scale(0.98);
-  }
-  
-  &:focus {
-    outline: none;
-  }
 }
 
-// Remove validation states to match wireframe simplicity
-.form-input:invalid:not(:placeholder-shown),
-.form-input:valid:not(:placeholder-shown) {
-  border-color: transparent;
+.btn.secondary:hover {
+  background-color: #d1d5db;
 }
 
-// Loading state for submit button
-.btn-submit:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  
-  &:hover {
-    background-color: $button-bg;
+// ===== Responsive =====
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: span 1;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
   }
 }
